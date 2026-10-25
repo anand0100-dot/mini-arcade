@@ -2,6 +2,10 @@
 pipeline {
     agent any
 
+    triggers {
+        pollSCM('H/2 * * * *')
+    }
+
     options {
         timestamps()
         disableConcurrentBuilds()
@@ -125,25 +129,21 @@ pipeline {
 
                     trap cleanup_new EXIT
 
-                    # Detect the currently deployed container.
                     if docker container inspect "$CONTAINER_NAME" >/dev/null 2>&1; then
                         OLD_NAME="$CONTAINER_NAME"
                     elif docker container inspect "$LEGACY_CONTAINER_NAME" >/dev/null 2>&1; then
                         OLD_NAME="$LEGACY_CONTAINER_NAME"
                     fi
 
-                    # Prepare the new image before replacing the old container.
                     docker create \
                       --name "$NEW_CONTAINER" \
                       ${IMAGE_NAME}:${BUILD_NUMBER} >/dev/null
 
-                    # Free the production port by backing up the old container.
                     if [ -n "$OLD_NAME" ]; then
                         docker stop "$OLD_NAME"
                         docker rename "$OLD_NAME" "$BACKUP_CONTAINER"
                     fi
 
-                    # Start the new AnandArcade container.
                     if ! docker run -d \
                       --name "$CONTAINER_NAME" \
                       --restart unless-stopped \
@@ -175,7 +175,6 @@ pipeline {
                         exit 1
                     fi
 
-                    # Remove the old container only after successful verification.
                     if [ -n "$OLD_NAME" ]; then
                         docker rm -f "$BACKUP_CONTAINER" >/dev/null
                     fi
