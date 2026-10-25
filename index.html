@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MiniArcade — play free browser games, track your scores, and beat your best.">
+    <title>MiniArcade | Play. Compete. Repeat.</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/app.js" defer></script>
+    <script src="js/tic-tac-toe.js" defer></script>
+    <script src="js/rock-paper-scissors.js" defer></script>
+    <script src="js/memory-match.js" defer></script>
+    <script src="js/number-guessing.js" defer></script>
+</head>
+<body>
+    <header class="navbar">
+        <a class="brand" href="#" aria-label="MiniArcade home">
+            <span class="brand-icon">M</span>
+            <span>Mini<span class="accent">Arcade</span></span>
+        </a>
+        <nav>
+            <a href="#games">Games</a>
+            <a href="#stats">My Stats</a>
+        </nav>
+        <div class="status"><span></span> ALL SYSTEMS READY</div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <div class="hero-copy">
+                <span class="eyebrow">YOUR NEXT HIGH SCORE STARTS HERE</span>
+                <h1>Small games.<br> <span class="gradient">Big challenges.</span></h1>
+                <p>Take a break, test your brain, and challenge your personal best. Four games. Endless replayability.</p>
+                <a class="primary-btn" href="#games">Explore Games <span>↗</span></a>
+                <div class="hero-note">FREE TO PLAY &nbsp;·&nbsp; NO DOWNLOADS &nbsp;·&nbsp; JUST FUN</div>
+            </div>
+            <div class="hero-art" aria-label="Arcade game controller illustration">
+                <div class="art-orbit orbit-one"></div>
+                <div class="art-orbit orbit-two"></div>
+                <div class="controller">
+                    <div class="controller-top"><span>MINI ARCADE</span><span>● ●</span></div>
+                    <div class="controller-controls">
+                        <div class="dpad"><span>↑</span><span>←</span><span>●</span><span>→</span><span>↓</span></div>
+                        <div class="action-buttons"><span>A</span><span>B</span></div>
+                    </div>
+                    <div class="controller-bottom"><span></span><span></span></div>
+                </div>
+                <span class="float-icon float-one">✦</span>
+                <span class="float-icon float-two">✳</span>
+                <span class="float-icon float-three">✧</span>
+            </div>
+        </section>
+
+        <section class="stats" id="stats">
+            <div class="stat-card"><span>AVAILABLE GAMES</span><strong>04</strong><small>Ready to play</small></div>
+            <div class="stat-card"><span>GAMES PLAYED</span><strong id="games-played">00</strong><small>Total sessions</small></div>
+            <div class="stat-card"><span>YOUR BEST</span><strong id="best-score">00</strong><small>Personal best score</small></div>
+            <div class="stat-card"><span>YOUR STATUS</span><strong class="online-text">ONLINE</strong><small>Arcade is ready</small></div>
+        </section>
+
+        <section class="games-section" id="games">
+            <div class="section-heading">
+                <div><span class="eyebrow">PICK YOUR CHALLENGE</span><h2>Choose your game<span class="accent">.</span></h2></div>
+                <span class="game-count">04 GAMES AVAILABLE</span>
+            </div>
+
+            <div class="game-grid">
+                <article class="game-card">
+                    <div class="game-art art-tictactoe"><div class="ttt-preview"><span>×</span><span>○</span><span>×</span><span>○</span><span>×</span><span></span><span></span><span>○</span><span>×</span></div><span class="game-number">01</span></div>
+                    <div class="game-info"><div class="game-meta"><span>STRATEGY</span><span>2 PLAYERS</span></div><h3>Tic-Tac-Toe</h3><p>Outsmart your opponent and claim the board.</p><button class="play-btn" data-game="tic-tac-toe">Play Now <span>→</span></button></div>
+                </article>
+
+                <article class="game-card">
+                    <div class="game-art art-rps"><span class="rps-emoji">✊</span><span class="rps-emoji">✋</span><span class="rps-emoji">✌️</span><span class="game-number">02</span></div>
+                    <div class="game-info"><div class="game-meta"><span>ARCADE</span><span>VS COMPUTER</span></div><h3>Rock Paper Scissors</h3><p>Make your move. Can you beat the computer?</p><button class="play-btn" data-game="rock-paper-scissors">Play Now <span>→</span></button></div>
+                </article>
+
+                <article class="game-card">
+                    <div class="game-art art-memory"><div class="memory-preview"><span>✦</span><span>?</span><span>?</span><span>?</span><span>✦</span><span>?</span><span>?</span><span>?</span><span>?</span></div><span class="game-number">03</span></div>
+                    <div class="game-info"><div class="game-meta"><span>BRAIN TRAINING</span><span>SOLO</span></div><h3>Memory Match</h3><p>Flip the cards and find all matching pairs.</p><button class="play-btn" data-game="memory-match">Play Now <span>→</span></button></div>
+                </article>
+
+                <article class="game-card">
+                    <div class="game-art art-number"><span class="number-symbol">?</span><span class="number-chip">07</span><span class="number-chip">42</span><span class="number-chip">19</span><span class="game-number">04</span></div>
+                    <div class="game-info"><div class="game-meta"><span>LOGIC</span><span>SOLO</span></div><h3>Number Guessing</h3><p>Crack the secret number in fewer attempts.</p><button class="play-btn" data-game="number-guessing">Play Now <span>→</span></button></div>
+                </article>
+            </div>
+        </section>
+
+        <section class="activity-panel">
+            <div><span class="eyebrow">KEEP IMPROVING</span><h2>Every round counts.</h2><p>Your game history and personal bests stay saved in this browser.</p></div>
+            <div class="activity-icon">🏆</div>
+        </section>
+    </main>
+
+    <footer><a class="brand footer-brand" href="#"><span class="brand-icon">M</span><span>Mini<span class="accent">Arcade</span></span></a><p>Built for fun. Powered by code.</p><span>MINIARCADE © 2026</span></footer>
+
+    <div class="modal hidden" id="game-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-box">
+            <div class="modal-header"><div><span class="eyebrow">NOW PLAYING</span><h2 id="modal-title">Game</h2></div><button class="close-btn" id="close-modal" aria-label="Close game">✕</button></div>
+            <div id="game-content"></div>
+        </div>
+    </div>
+</body>
+</html>
